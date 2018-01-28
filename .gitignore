@@ -1,0 +1,27 @@
+# output files
+*.out
+
+# data
+/data/*
+
+# pyc filse
+*pyc
+
+# ipydb files
+*ipynb*
+
+# saved model
+/model/*
+
+# mxnet
+/mxnet/*
+
+#
+run_resnet.txt
+non_local_net.py
+
+train_with_pretrain.py
+
+test_recfile.py
+test_operator.py
+memonger.py

@@ -1,0 +1,44 @@
+---
+gpus: '2,3'
+batch_size: 32
+frequent: 50
+kv_store: 'device'
+memonger: False
+retrain: False
+model_path: './model/'
+model_load_epoch: 0
+num_epoch: 100
+network:
+  depth: 50
+  num_stages: 4
+  units:
+  - 3
+  - 4
+  - 6
+  - 3
+  filter_list:
+  - 64
+  - 256
+  - 512
+  - 1024
+  - 2048
+  dropout: 0.0
+nonlocal:
+  resample: False
+train:
+  bn_mom: 0.9
+  lr: 0.1
+  mom: 0.9
+  wd: 0.0001
+  workspace: 256
+  lr_steps:
+  - 30
+  - 60
+  - 90
+dataset:
+  data_type: 'tiny-imagenet'
+  data_dir: './data/tiny-imagenet-10'
+  num_classes: 12
+  num_examples: 12000
+  aug_level: 1
+

@@ -1,0 +1,41 @@
+---
+gpus: '2,3'
+batch_size: 64
+frequent: 50
+kv_store: 'device'
+memonger: False
+retrain: False
+model_path: './model/'
+model_load_epoch: 0
+num_epoch: 100
+network:
+  depth: 164
+  num_stages: 3
+  units:
+  - 18
+  - 18
+  - 18
+  filter_list:
+  - 16
+  - 64
+  - 128
+  - 256
+  dropout: 0.0
+nonlocal:
+  resample: True
+train:
+  bn_mom: 0.9
+  lr: 0.1
+  mom: 0.9
+  wd: 0.0001
+  workspace: 256
+  lr_steps:
+  - 120
+  - 160
+dataset:
+  data_type: 'cifar100'
+  data_dir: './data/cifar100'
+  num_classes: 100
+  num_examples: 50000
+  aug_level: 1
+
