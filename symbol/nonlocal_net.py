@@ -13,11 +13,11 @@ def non_local_block(insym, num_filter, mode='Embedded Gaussian', resample=True, 
     mode : str
         `mode` must be one of `gaussian`, `embedded`, `dot` or `concatenate`
     """
-    # default mode is Embedded Gaussian
-    new_filter = num_filter / 2 if num_filter >= 1024 else num_filter
-    indata1 = mx.sym.Convolution(insym, kernel=(1, 1), stride=(1, 1), num_filter=new_filter,
+    # only Embedded Gaussian mode for 3d feature is implemented
+    inter_filter = num_filter / 2 if num_filter >= 1024 else num_filter
+    indata1 = mx.sym.Convolution(insym, kernel=(1, 1), stride=(1, 1), num_filter=inter_filter,
                                  no_bias=True, name='nonlocal_conv%d1' % ith)
-    indata2 = mx.sym.Convolution(insym, kernel=(1, 1), stride=(1, 1), num_filter=new_filter,
+    indata2 = mx.sym.Convolution(insym, kernel=(1, 1), stride=(1, 1), num_filter=inter_filter,
                                  no_bias=True, name='nonlocal_conv%d2' % ith)
 
     # data size: batch_size x (num_filter / 2) x HW
@@ -30,7 +30,7 @@ def non_local_block(insym, num_filter, mode='Embedded Gaussian', resample=True, 
     # add softmax layer
     f = mx.sym.softmax(f, axis=2)
 
-    indata3 = mx.sym.Convolution(insym, kernel=(1, 1), stride=(1, 1), num_filter=new_filter,
+    indata3 = mx.sym.Convolution(insym, kernel=(1, 1), stride=(1, 1), num_filter=inter_filter,
                                  no_bias=True, name='nonlocal_conv3%d' % ith)
     # g size: batch_size x (num_filter / 2) x HW
     g = mx.sym.reshape(indata3, shape=(0, 0, -1))
