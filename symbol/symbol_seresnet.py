@@ -36,6 +36,7 @@ def residual_unit(data, num_filter, ratio, stride, dim_match, name, bottle_neck=
                                    workspace=workspace, name=name + '_conv3')
         
         ## Squeeze and Excitation
+        ## refered https://github.com/bruinxiong/SENet.mxnet
         squeeze = mx.sym.Pooling(data=conv3, global_pool=True, kernel=(7, 7), pool_type='avg', name=name + '_squeeze')
         squeeze = mx.symbol.Flatten(data=squeeze, name=name + '_flatten')
         excitation = mx.symbol.FullyConnected(data=squeeze, num_hidden=int(num_filter*ratio), name=name + '_excitation1')
@@ -63,7 +64,7 @@ def residual_unit(data, num_filter, ratio, stride, dim_match, name, bottle_neck=
                                       no_bias=True, workspace=workspace, name=name + '_conv2')
         
         ## Squeeze and Excitation
-        squeeze = mx.sym.Pooling(data=conv3, global_pool=True, kernel=(7, 7), pool_type='avg', name=name + '_squeeze')
+        squeeze = mx.sym.Pooling(data=conv2, global_pool=True, kernel=(7, 7), pool_type='avg', name=name + '_squeeze')
         squeeze = mx.symbol.Flatten(data=squeeze, name=name + '_flatten')
         excitation = mx.symbol.FullyConnected(data=squeeze, num_hidden=int(num_filter*ratio), name=name + '_excitation1')
         excitation = mx.sym.Activation(data=excitation, act_type='relu', name=name + '_excitation1_relu')

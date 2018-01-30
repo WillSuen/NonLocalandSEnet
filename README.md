@@ -10,3 +10,9 @@
 
 #### Train sequeeze-excitation with tiny-imagenet
 `python train_seresnet.py --cfg cfgs/seresnet_tinyimagenet.yaml`
+
+
+### Reference
+[1] [SENet.mxnet](https://github.com/bruinxiong/SENet.mxnet)
+
+[2] [keras-non-local-nets](https://github.com/titu1994/keras-non-local-nets)
